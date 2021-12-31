@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+<%@page import="java.sql.*,java.util.*,java.io.*"%>
+<%
+try{
+int roll=Integer.parseInt(request.getParameter("no"));
+String name=request.getParameter("name");
+String branch=request.getParameter("branch");
+int sslc=Integer.parseInt(request.getParameter("sslc"));
+int hsc=Integer.parseInt(request.getParameter("hsc"));
+Class.forName("com.mysql.jdbc.Driver");
+Connection conn=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/student","root","");
+PreparedStatement ps=conn.prepareStatement("insert into student values(?,?,?,?,?)");
+ps.setInt(1,roll);
+ps.setString(2,name);
+ps.setString(3,branch);
+ps.setInt(4,sslc);
+ps.setInt(5,hsc);
+ps.executeUpdate();
+out.println("Record Inserted Successfully...!");
+ps.close();
+conn.close();
+}
+catch(Exception e)
+{
+out.println(e);
+}
+%>
